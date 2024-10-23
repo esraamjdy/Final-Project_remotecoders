@@ -1,0 +1,25 @@
+[
+    {
+        "username": "hazem",
+        "password": "pbkdf2:sha256:260000$JgAteF5LE3zWBfz6$8af35e0a78626fe8bf69edbae09279990be671b9303658b9b6de1b9882b0926c",
+        "employees": []
+    },
+    {
+        "username": "esraa",
+        "password": "pbkdf2:sha256:260000$U8UEJs8V3iajUMqs$cb6715c3219391ed4315bce138700442fac81134ac0928e49b423ed620e9fa1d",
+        "employees": [
+            {
+                "id": 21,
+                "name": "eeeeeeeeeeeee",
+                "age": "44",
+                "gender": "female",
+                "active": true,
+                "city": "Gharbia",
+                "email": "esraamjdy@gmail.com",
+                "phone": "01026424459",
+                "salary": "33355",
+                "start_date": "22 October 2024"
+            }
+        ]
+    }
+]
