@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <title>Employee Management Dashboard</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('username-display').textContent = username;
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('username');
+            window.location.href = '/login'; // تأكد من استخدام المسار الصحيح
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Employee Management System</h1>
+        <p>Welcome, <span id="username-display"></span>!</p>
+        <nav class="navbar">
+            <a href="/" data-page="home">Home</a>
+            <a href="/employees" data-page="employees">Employee List</a>
+            <a href="/profile" data-page="profile">Profile</a>
+            <button onclick="logout()" id="logout">Logout</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main>
+            <h2>Dashboard Overview</h2>
+            <div class="summary">
+                <div class="card">
+                    <h3>Active Employees</h3>
+                    <span>{{ stats.active_employees }}</span>
+                </div>
+                <div class="card">
+                    <h3>Inctive Employees</h3>
+                    <span >{{ stats.inactive_employees }}</span>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="card">
+                    <h3>Male Employees</h3>
+                    <span >{{ stats.male_employees }}</span>
+                </div>
+                <div class="card">
+                    <h3>Female Employees</h3>
+                    <span >{{ stats.female_employees }}</span>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="card">
+                    <h3>Total Employees</h3>
+                    <span>{{ stats.total_employees }}</span>
+                </div>
+                <div class="card">
+                    <h3>Total Sallaries</h3>
+                    <span >{{ stats.total_salary }}</span>
+                </div>
+            </div>
+            <canvas id="employeeChart"></canvas>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Employee Management System</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+
+</html>
