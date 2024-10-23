@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/employees.css') }}">
+    <title>Employee List</title>
+    <script src="{{ url_for('static', filename='js/employees.js') }}"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Employee Management System</h1>
+        <nav class="navbar">
+            <a href="/" data-page="home">Home</a>
+            <a href="/employees" data-page="employees">Employee List</a>
+            <a href="/profile" data-page="profile">Profile</a>
+            <button onclick="logout()" id="logout">Logout</button>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Employee List</h2>
+        <button class="btn-add" onclick="showAddEmployeeModal()">Add New Employee</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>City</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Salary</th>
+                    <th>Start Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTable">
+                <!-- Employees will be dynamically inserted here -->
+            </tbody>
+        </table>
+
+        <!-- Add Employee Modal -->
+        <div id="addEmployeeModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddEmployeeModal()">&times;</span>
+                <h2>Add New Employee</h2>
+                <form id="addEmployeeForm">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required><br>
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" min="18" max="65" required><br>
+                    <label for="gender">Gender:</label><br>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select><br>
+                    <label for="city">City:</label>
+                    <input type="text" id="city" required><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required><br>
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" required><br>
+                    <label for="salary">Salary:</label>
+                    <input type="number" id="salary" required><br>
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" required><br>
+                    <label for="active">active:</label>
+                    <input type="checkbox" id="active" checked><br>
+                    <button type="button" onclick="addEmployee()">Add Employee</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Update Employee Modal -->
+        <div id="updateModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeUpdateModal()">&times;</span>
+                <h2>Update Employee</h2>
+                <form id="updateEmployeeForm">
+                    <input type="hidden" id="employeeId">
+                    <label for="updateName">Name:</label>
+                    <input type="text" id="updateName" required><br>
+                    <label for="updateAge">Age:</label>
+                    <input type="number" id="updateAge" min="18" max="65" required><br>
+                    <label for="gender">Gender:</label><br>
+                    <select id="updateGender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select><br>
+                    <label for="updateActive">Active:</label>
+                    <input type="checkbox" id="updateActive"><br>
+                    <label for="updateCity">City:</label>
+                    <input type="text" id="updateCity" required><br>
+                    <label for="updateEmail">Email:</label>
+                    <input type="email" id="updateEmail" required><br>
+                    <label for="updatePhone">Phone:</label>
+                    <input type="text" id="updatePhone" required><br>
+                    <label for="updateSalary">Salary:</label>
+                    <input type="text" id="updateSalary" required><br>
+                    <label for="updateStartDate">Start Date:</label>
+                    <input type="date" id="updateStartDate" required><br>
+                    <button type="button" onclick="updateEmployee()">Update</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Employee Management System</p>
+    </footer>
+</body>
+
+</html>
