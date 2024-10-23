@@ -24,16 +24,15 @@ def save_users(users):
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
-        # قم بعرض صفحة التسجيل
+        # show login page
         return render_template('register.html')
     elif request.method == 'POST':
-        # معالجة بيانات التسجيل المرسلة عبر POST
         username = request.form.get('username')
         password = request.form.get('password')
         users = load_users()
         if any(user['username'] == username for user in users):
             return jsonify({'status': 'error', 'message': 'Username already exists!'})
-        hashed_password = generate_password_hash(password)  # تشفير كلمة المرور
+        hashed_password = generate_password_hash(password)  # encrypting the password
         users.append({"username": username, "password": hashed_password, "employees" : []})
         save_users(users)
         return jsonify({'status': 'success', 'message': 'User registered successfully!'})
@@ -56,25 +55,17 @@ def login():
 
     return render_template('login.html')
 
+
+#logout route
 @app.route('/logout', methods=['GET'])
 def logout():
-    # إزالة الجلسة
-    session.pop('user', None)  # إزالة المستخدم من الجلسة
-    session.clear()  # تنظيف الجلسة بالكامل
+    # remove session
+    session.pop('user', None)  #remove usere from session
+    session.clear()  
     return render_template('login.html')
-# Main route (Homepage)
 
 
-class User:
-    def __init__(self, id, username, password, email):
-        self.id = id
-        self.username = username
-        self.password = password
-        self.email = email
-
-
-
-# Employee
+# Employee class
 class Employee:
     def __init__(self, id, name, age, gender,active,city, email, phone, salary, start_date):
         self.id = id
@@ -117,7 +108,7 @@ class Employee:
             start_date=data.get('start_date')
         )
 
-# قراءة البيانات من ملف JSON
+# read from JSON
 def read_data():
     try:
         with open('employees.json', 'r') as file:
@@ -126,27 +117,28 @@ def read_data():
     except FileNotFoundError:
         return []
 
-# كتابة البيانات إلى ملف JSON
+# write to JSON
 def write_data(employees):
     with open('employees.json', 'w') as file:
         json.dump([emp for emp in employees], file, indent=4)
+        
 
+# add employee
 @app.route('/add_employee', methods=['POST'])
 def add_employee():
     
     data = request.get_json()
     users_update = []
-    employees_data = load_users()  # تحميل جميع المستخدمين
-    current_user = next(user for user in employees_data if user['username'] == session['user'])  # المستخدم الحالي
+    employees_data = load_users() # load users
+    current_user = next(user for user in employees_data if user['username'] == session['user'])  # current user
     for user in employees_data:
         if user['username'] != session['user']:
             users_update.append(user)
             
-    # التحقق من المستخدم
+# check that user exists
     if not current_user:
         return jsonify({"status": "error", "message": "User not found!"}), 404
 
-    # معالجة الموظف الجديد
     max_id = read_max_id()
     date_obj = datetime.strptime(data['start_date'], '%Y-%m-%d')
     formatted_date = date_obj.strftime('%d %B %Y')
@@ -164,19 +156,17 @@ def add_employee():
         "start_date": formatted_date
     }
 
-    # إضافة الموظف لمصفوفة الموظفين للمستخدم الحالي
+    # add employee to the list of employees
     current_user['employees'].append(new_employee)
     users_update.append(current_user)
     
-    # حفظ البيانات
+    # save data
     save_users(employees_data)
     write_max_id(max_id + 1)
 
     return jsonify(new_employee), 201
 
-
-
-
+#get the employees
 @app.route('/get_employees')
 def get_employees():
     users = load_users()
@@ -187,6 +177,7 @@ def get_employees():
             
     return jsonify([emp for emp in employees])
 
+# convert date format
 @app.route('/employee/<int:id>')
 def get_employee(id):
     users = load_users()
@@ -209,6 +200,7 @@ def get_employee(id):
     else:
         return ('', 404)
 
+# update employee
 @app.route('/update_employee/<int:id>', methods=['PUT'])
 def update_employee(id):
     updated_data = request.get_json()
@@ -239,6 +231,7 @@ def update_employee(id):
         return jsonify({'error': 'Employee not found'}), 404
     
 
+# delete employee
 @app.route('/delete_employee/<int:id>', methods=['DELETE'])
 def delete_employee(id):
     users = load_users()
@@ -268,26 +261,27 @@ def read_max_id():
     except FileNotFoundError:
         return 0  # If file doesn't exist, start with ID 0
 
+
 # Helper function to save the max_id to a JSON file
 def write_max_id(max_id):
     with open('max_id.json', 'w') as file:
         json.dump({'max_id': max_id}, file, indent=4)
         
         
-        
-@app.route('/employees')
-def employees():
-    return render_template('employees.html')
-
+# route to count the statistics of the employees and the main page
 @app.route('/')
 def index():
-    employees = read_data()
+    users =load_users()
+    employees = []
+    for user in users:
+        if user["username"] == session["user"]:
+            employees = user["employees"]
     total_employees = len(employees)
-    active_employees = sum(1 for emp in employees if emp.active)
+    active_employees = sum(1 for emp in employees if emp["active"])
     inactive_employees = total_employees - active_employees
-    female_employees = sum(1 for emp in employees if emp.gender.lower() == 'female')
-    male_employees = sum(1 for emp in employees if emp.gender.lower() == 'male')
-    total_salary = sum(float(emp.salary) for emp in employees)
+    female_employees = sum(1 for emp in employees if emp["gender"].lower() == 'female')
+    male_employees = sum(1 for emp in employees if emp["gender"].lower() == 'male')
+    total_salary = sum(float(emp["salary"]) for emp in employees)
     stats = {
         'total_employees': total_employees,
         'active_employees': active_employees,
@@ -298,5 +292,12 @@ def index():
     }
     
     return render_template('index.html', stats=stats)
+
+
+# route for employees page
+@app.route('/employees')
+def employees():
+    return render_template('employees.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
