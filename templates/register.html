@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>Register</title>
     <style>
+        /* Center the container and align content */
         .container {
           display: flex;
           flex-direction: column;
@@ -13,36 +14,44 @@
           align-items: center;
         }
       
+        /* Styling the form and inputs */
         form {
           display: flex;
           flex-direction: column;
           align-items: center;
         }
       
+        /* Input fields style */
         input {
           margin: 10px 0;
           padding: 10px;
           width: 300px;
         }
       
+        /* Button styling */
         button {
           padding: 10px 20px;
           margin-top: 10px;
         }
-      </style>
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Register</h1>
         <form id="register-form" method="POST">
+            <!-- Username input field -->
             <input type="text" id="username" name="username" placeholder="Username" required>
+            <!-- Password input fields -->
             <input type="password" id="password" name="password" placeholder="Password" required>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+            <!-- Submit button -->
             <button type="submit">Register</button>
         </form>
+        <!-- Error message placeholder -->
         <p id="message" style="color: red;">{{ message }}</p>
         <a href="/login">Already have an account? Login here.</a>
     </div>
+    <!-- Link to external JavaScript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
