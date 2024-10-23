@@ -22,7 +22,7 @@ function fetchEmployees() {
                     <td>${employee.salary}</td>
                     <td>${employee.start_date}</td>
                     <td class="action-buttons">
-                        <button class="btn-update" onclick="showUpdateModal(${employee.id})">Update</button>
+                        <button class="btn-update" onclick="showUpdateModal(${employee.id})">View and Update</button>
                         <button class="btn-delete" onclick="deleteEmployee(${employee.id})">Delete</button>
                     </td>
                 `;
@@ -67,7 +67,7 @@ function updateEmployee() {
         salary: document.getElementById('updateSalary').value,
         start_date: document.getElementById('updateStartDate').value,
     };
-
+    const updateForm = document.getElementById('updateForm');
     // Convert age to number for validation
     const age = parseInt(updatedEmployee.age, 10);
     const minAge = 18;
@@ -89,6 +89,7 @@ function updateEmployee() {
     .then(response => response.json())
     .then(data => {
         closeUpdateModal();
+        updateForm.reset();
         fetchEmployees();  // Refresh the employee list
     })
     .catch(error => console.error('Error updating employee:', error));
@@ -146,7 +147,7 @@ function addEmployee() {
         alert(`Please enter age between${minAge} and ${maxAge}.`);
         return; 
     }
-
+    const addForm = document.getElementById('addEmployeeForm');
     const employeeData = {
         name: name,
         age: age,
@@ -169,6 +170,7 @@ function addEmployee() {
     .then(response => {
         if (response.ok) {
             closeAddEmployeeModal();
+            addForm.reset();
             fetchEmployees();
         } else {
             alert('Failed to add employee');
