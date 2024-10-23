@@ -1,71 +1,63 @@
-// التحقق مما إذا كان المستخدم مسجلاً الدخول
+// Check if the user is already logged in
 document.addEventListener('DOMContentLoaded', function () {
     const username = localStorage.getItem('username');
     if (username) {
-        // توجيه المستخدم إلى الصفحة الرئيسية إذا كان مسجلاً الدخول
-        window.location.href = '/'; // تأكد من استخدام المسار الصحيح
+        // Redirect to home page if logged in
+        window.location.href = '/'; // Ensure the correct path is used
     }
 });
 
-// تسجيل الدخول
-// تسجيل الدخول
+// Handle login form submission
 document.getElementById('login-form')?.addEventListener('submit', async function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
+    // Send login request to the server
     const response = await fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `username=${username}&password=${password}`,
+        body: `username=${username}&password=${password}`, // Send form data
     });
 
     const data = await response.json();
-    document.getElementById('message').innerText = data.message;
+    document.getElementById('message').innerText = data.message; // Display server message
 
     if (data.status === 'success') {
-        localStorage.setItem('username', username);  // تخزين اسم المستخدم
-        window.location.href = '/'; // تأكد من استخدام المسار الصحيح
+        localStorage.setItem('username', username);  // Store username in localStorage
+        window.location.href = '/'; // Redirect to home page upon successful login
     }
 });
 
-
-// تسجيل المستخدم
+// Handle register form submission
 document.getElementById('register-form')?.addEventListener('submit', async function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
 
-    // تحقق من تطابق كلمة المرور
+    // Check if passwords match
     if (password !== confirmPassword) {
         document.getElementById('message').innerText = "Passwords do not match!";
         return;
     }
 
-    // إرسال البيانات إلى السيرفر
+    // Send registration data to the server
     const response = await fetch('/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `username=${username}&password=${password}`,
+        body: `username=${username}&password=${password}`, // Send form data
     });
 
     const data = await response.json();
-    document.getElementById('message').innerText = data.message;
+    document.getElementById('message').innerText = data.message; // Display server message
 
     if (data.status === 'success') {
-        localStorage.setItem('username', username);
-        window.location.href = '/'; // تأكد من استخدام المسار الصحيح
+        localStorage.setItem('username', username); // Store username in localStorage
+        window.location.href = '/'; // Redirect to home page after successful registration
     }
 });
-
-// الدالة لتسجيل الدخول
-function login() {
-    localStorage.setItem('username', response.username); // تخزين اسم المستخدم
-}
-
-
