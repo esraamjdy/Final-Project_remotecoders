@@ -3,45 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Linking external CSS for styling the login page -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>Login</title>
-<style>
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  input {
-    margin: 10px 0;
-    padding: 10px;
-    width: 300px;
-  }
-
-  button {
-    padding: 10px 20px;
-    margin-top: 10px;
-  }
-</style>
+    <style>
+        /* Custom styling for the login page can be added here if necessary */
+    </style>
 </head>
 <body>
     <div class="container">
+        <!-- Main heading for the login page -->
         <h1>Login</h1>
+        <!-- Login form to handle user input -->
         <form id="login-form">
+            <!-- Input field for username -->
             <input type="text" id="username" placeholder="Username" required>
+            <!-- Input field for password -->
             <input type="password" id="password" placeholder="Password" required>
+            <!-- Button to submit the form and trigger login process -->
             <button type="submit">Login</button>
         </form>
+        <!-- Placeholder for error or success messages after form submission -->
         <p id="message"></p>
+        <!-- Link to the registration page for new users -->
         <a href="/register">Don't have an account? Register here.</a>
     </div>
+    <!-- Linking external JavaScript file to handle login logic -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
