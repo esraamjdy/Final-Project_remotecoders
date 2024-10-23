@@ -273,9 +273,12 @@ def write_max_id(max_id):
 def index():
     users =load_users()
     employees = []
-    for user in users:
-        if user["username"] == session["user"]:
-            employees = user["employees"]
+    if session.get("user"):
+        for user in users:
+            if user["username"] == session["user"]:
+                employees = user["employees"]
+    else:
+        return redirect(url_for('login'))
     total_employees = len(employees)
     active_employees = sum(1 for emp in employees if emp["active"])
     inactive_employees = total_employees - active_employees
@@ -297,7 +300,10 @@ def index():
 # route for employees page
 @app.route('/employees')
 def employees():
-    return render_template('employees.html')
+    if session.get("user"):
+        return render_template('employees.html')
+    else:
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
