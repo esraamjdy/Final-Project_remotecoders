@@ -1,11 +1,11 @@
 // Check if the user is already logged in
-document.addEventListener('DOMContentLoaded', function () {
-    const username = localStorage.getItem('username');
-    if (username) {
-        // Redirect to home page if logged in
-        window.location.href = '/'; // Ensure the correct path is used
-    }
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     const username = localStorage.getItem('username');
+//     if (username) {
+//         // Redirect to home page if logged in
+//         window.location.href = '/'; // Ensure the correct path is used
+//     }
+// });
 
 // Handle login form submission
 document.getElementById('login-form')?.addEventListener('submit', async function (e) {
