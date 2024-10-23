@@ -72,3 +72,26 @@ a:hover {
 .success-message {
     color: green;
 }
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 300px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+  }
