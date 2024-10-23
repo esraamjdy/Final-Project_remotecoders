@@ -1,87 +1,87 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
+  font-family: Arial, sans-serif; /* Set font style */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  background-color: #f4f4f4; /* Light gray background */
 }
 
 header {
-  background-color: #333;
-  color: #fff;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #333; /* Dark header background */
+  color: #fff; /* White text color */
+  padding: 15px 20px; /* Header padding */
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between header elements */
+  align-items: center; /* Center items vertically */
 }
 
-
 .navbar {
-  background-color: #333;
-  padding: 15px;
-  margin-bottom: 20px;
+  background-color: #333; /* Dark navbar background */
+  padding: 15px; /* Navbar padding */
+  margin-bottom: 20px; /* Space below navbar */
 }
 
 .navbar a {
-  color: white;
-  text-decoration: none;
-  padding: 10px 15px;
-  margin-right: 10px;
-  transition: all 0.3s ease;
+  color: white; /* White links */
+  text-decoration: none; /* No underline on links */
+  padding: 10px 15px; /* Link padding */
+  margin-right: 10px; /* Space between links */
+  transition: all 0.3s ease; /* Smooth hover transition */
 }
 
 .navbar a:hover {
-  background-color: #555;
+  background-color: #555; /* Darker on hover */
 }
 
 .navbar a.active {
-  color: #4CAF50;  
-  font-weight: bold;
-  border-bottom: 2px solid #4CAF50;
+  color: #4CAF50; /* Active link color */
+  font-weight: bold; /* Bold active link */
+  border-bottom: 2px solid #4CAF50; /* Underline for active link */
 }
+
 .container {
-  padding: 20px;
+  padding: 20px; /* Container padding */
 }
 
 h1 {
-  margin: 0;
+  margin: 0; /* Remove heading margin */
 }
 
 .summary {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  display: flex; /* Flex layout for summary */
+  justify-content: space-between; /* Space between summary items */
+  margin-top: 20px; /* Space above summary */
 }
 
 .card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  text-align: center;
-  flex: 1;
-  margin: 0 10px;
+  background: white; /* Card background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Card shadow */
+  padding: 20px; /* Card padding */
+  text-align: center; /* Center card text */
+  flex: 1; /* Equal card growth */
+  margin: 0 10px; /* Margin between cards */
 }
 
 .card h3 {
-  margin: 0;
-  color: #333;
+  margin: 0; /* Remove card heading margin */
+  color: #333; /* Dark heading color */
 }
 
 footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  background-color: #333; /* Dark footer background */
+  color: #fff; /* White footer text */
+  text-align: center; /* Center footer text */
+  padding: 10px 0; /* Footer padding */
+  position: fixed; /* Fixed footer position */
+  bottom: 0; /* Align to bottom */
+  width: 100%; /* Full footer width */
 }
 
 button {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
+  background-color: #f44336; /* Red button background */
+  color: white; /* White button text */
+  border: none; /* No button border */
+  border-radius: 5px; /* Rounded button corners */
+  padding: 10px 15px; /* Button padding */
+  cursor: pointer; /* Pointer cursor on hover */
 }
