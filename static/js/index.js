@@ -1,7 +1,5 @@
+// Initialize chart when the page is loaded
 document.addEventListener('DOMContentLoaded', function() {
-
-
-    // Example for initializing a chart
     const ctx = document.getElementById('employeeChart').getContext('2d');
     const employeeChart = new Chart(ctx, {
         type: 'bar',
@@ -9,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
             datasets: [{
                 label: 'Employees Joined',
-                data: [5, 10, 8, 12, 7],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                data: [5, 10, 8, 12, 7], // Sample data
+                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Bar color
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
@@ -18,34 +16,29 @@ document.addEventListener('DOMContentLoaded', function() {
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true // Y-axis starts from zero
                 }
             }
         }
     });
 });
 
-
-
+// Display the logged-in username or "Guest" if not logged in
 document.addEventListener('DOMContentLoaded', function () {
     const username = localStorage.getItem('username');
-    if (username) {
-        document.getElementById('username-display').textContent = username;
-    } else {
-        document.getElementById('username-display').textContent = 'Guest'; // أو يمكنك تركه فارغًا
-    }
+    document.getElementById('username-display').textContent = username ? username : 'Guest'; // Display username or 'Guest'
 });
 
-// الدالة لتسجيل الخروج
+// Logout function
 function logout() {
     fetch('/logout', {
         method: 'GET',
-        credentials: 'include',  // لتضمين ملفات تعريف الارتباط الخاصة بالجلسة
+        credentials: 'include', // Include session cookies
     })
     .then(response => {
         if (response.ok) {
-            localStorage.removeItem('username');  // إزالة اسم المستخدم المخزن
-            window.location.href = '/login';  // إعادة التوجيه إلى صفحة تسجيل الدخول
+            localStorage.removeItem('username'); // Remove stored username
+            window.location.href = '/login'; // Redirect to login page
         } else {
             console.error('Logout failed!');
         }
@@ -55,37 +48,37 @@ function logout() {
     });
 }
 
+// Highlight the active navigation link based on current path
 function setActiveNavItem() {
     const navLinks = document.querySelectorAll('.navbar a');
     const currentPath = window.location.pathname;
-        navLinks.forEach(link => {
-        link.classList.remove('active');
-    });
+    navLinks.forEach(link => link.classList.remove('active')); // Remove active class from all
     navLinks.forEach(link => {
         if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
+            link.classList.add('active'); // Add active class to the current link
         }
     });
     if (currentPath === '/') {
-        navLinks[0].classList.add('active');
+        navLinks[0].classList.add('active'); // Set the home link active by default
     }
 }
 
+// Handle click event for navigation links
 function handleNavigation() {
     const navLinks = document.querySelectorAll('.navbar a');
-    
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
+        link.addEventListener('click', function() {
+            navLinks.forEach(l => l.classList.remove('active')); // Remove active class from all links
+            this.classList.add('active'); // Set clicked link as active
         });
     });
 }
 
+// Setup navigation highlights on page load and when navigating back
 document.addEventListener('DOMContentLoaded', function() {
     setActiveNavItem();
     handleNavigation();
 });
 window.addEventListener('popstate', function() {
-    setActiveNavItem();
+    setActiveNavItem(); // Recheck active link on browser back/forward navigation
 });
